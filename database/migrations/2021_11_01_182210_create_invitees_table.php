@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDrawingsTable extends Migration
+class CreateInviteesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateDrawingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('drawings', function (Blueprint $table) {
+        Schema::create('invitees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('organizer_id')
-                ->constrained('users', 'id')
-                ->onDelete('cascade');
+            $table->enum('sex', ['male', 'female']);
+            $table->integer('age', false, true);
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateDrawingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('drawings');
+        Schema::dropIfExists('invitees');
     }
 }
