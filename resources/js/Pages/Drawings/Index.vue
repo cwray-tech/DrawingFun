@@ -10,8 +10,9 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div
                     class="
-                        grid
-                        border-2 border-black border-opacity-100
+                        border-4
+                        divide-black divide-y-2
+                        border-black border-opacity-100
                         overflow-hidden
                     "
                 >
@@ -19,7 +20,7 @@
                         :href="route('drawings.show', drawing)"
                         v-for="drawing in drawings"
                         :key="drawing.id"
-                        class="p-6 hover:bg-white px-6 w-full block bg-white"
+                        class="p-6 hover:bg-gray-100 px-6 w-full block bg-white"
                     >
                         <h3 class="text-xl">{{ drawing.name }}</h3>
                     </Link>

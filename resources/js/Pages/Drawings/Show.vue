@@ -27,11 +27,22 @@
                     <h2 class="p-6 text-xl">Drawing Invitees</h2>
 
                     <div
-                        class="p-6"
+                        class="p-6 grid grid-cols-2 gap-4"
                         v-for="invitee in drawing.invitees"
                         :key="invitee.id"
                     >
-                        {{ invitee.name }}
+                        <jet-input
+                            @change="updateInvitee(invitee)"
+                            type="text"
+                            :placeholder="invitee.name"
+                            v-model="invitee.name"
+                        ></jet-input>
+                        <jet-input
+                            @change="updateInvitee(invitee)"
+                            type="email"
+                            :placeholder="invitee.email"
+                            v-model="invitee.email"
+                        ></jet-input>
                     </div>
                 </div>
 
@@ -115,6 +126,12 @@ export default defineComponent({
         };
     },
     methods: {
+        updateInvitee(invitee) {
+            this.$inertia.patch(
+                this.route("drawings.invitees.update", [this.drawing, invitee]),
+                invitee
+            );
+        },
         addInvitee() {
             this.invitee.post(route("drawings.invitees.store", this.drawing), {
                 onSuccess: () => {

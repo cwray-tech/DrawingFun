@@ -75,9 +75,10 @@ class InviteeController extends Controller
      * @param  \App\Models\Invitee  $invitee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invitee $invitee)
+    public function update(Request $request,Drawing $drawing, Invitee $invitee)
     {
-        //
+        $invitee->update($request->all());
+        return back()->banner('Invitee updated');
     }
 
     /**
