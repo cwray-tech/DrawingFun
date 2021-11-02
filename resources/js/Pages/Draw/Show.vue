@@ -9,7 +9,8 @@
             min-h-screen
             bg-white
             dark:bg-gray-900
-            sm:items-center sm:pt-0
+            sm:items-center
+            py-12
         "
     >
         <div class="max-w-screen-sm mx-auto sm:px-6 lg:px-8">
