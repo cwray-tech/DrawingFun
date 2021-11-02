@@ -13,7 +13,7 @@
             py-12
         "
     >
-        <div class="max-w-screen-sm mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-screen-sm mx-auto px-6 lg:px-8">
             <h1 class="text-3xl mb-6 text-center">{{ drawing.name }}</h1>
             <h2 class="text-xl mb-6 text-center">
                 Hey {{ invitee.name }}!
