@@ -1340,9 +1340,6 @@ select {
 .cursor-pointer {
 	cursor: pointer;
 }
-.resize {
-	resize: both;
-}
 .list-inside {
 	list-style-position: inside;
 }
@@ -1354,9 +1351,6 @@ select {
 }
 .grid-cols-1 {
 	grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.grid-cols-3 {
-	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .grid-cols-2 {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1387,9 +1381,6 @@ select {
 }
 .gap-1 {
 	gap: 0.25rem;
-}
-.gap-20 {
-	gap: 5rem;
 }
 .gap-40 {
 	gap: 10rem;
@@ -1516,9 +1507,6 @@ select {
 .border-black {
 	--tw-border-opacity: 1;
 	border-color: rgba(0, 0, 0, var(--tw-border-opacity));
-}
-.border-opacity-0 {
-	--tw-border-opacity: 0;
 }
 .border-opacity-100 {
 	--tw-border-opacity: 1;
