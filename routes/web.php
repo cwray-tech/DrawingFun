@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DrawingController;
+use App\Http\Controllers\InviteeController;
+use App\Http\Controllers\DrawController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +27,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth'])->group(function() {
+    Route::resource('drawings', DrawingController::class);
+    Route::resource('drawings.invitees', InviteeController::class);
+    Route::post('drawings/{drawing}/invitees/invite', [InviteeController::class, 'invite'])->name('drawings.invitees.invite');
+});
+
+Route::get("/drawings/{drawing}/invitees/{invitee}/draw", [DrawController::class, 'show'])->name('drawings.draw');
+Route::post("/drawings/{drawing}/invitees/{invitee}/draw", [DrawController::class, 'store'])->name('draw.store');

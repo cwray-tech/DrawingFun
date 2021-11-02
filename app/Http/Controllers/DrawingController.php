@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Drawing;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DrawingController extends Controller
 {
@@ -14,7 +16,9 @@ class DrawingController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Drawings/Index', [
+            'drawings' => auth()->user()->drawings,
+        ]);
     }
 
     /**
@@ -35,7 +39,10 @@ class DrawingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $drawing = $request->user()->drawings()->create([
+                'name' => $request->drawing_name,
+            ]);
+        return redirect()->route('drawings.show', $drawing->id)->banner('Woohoo! you\'ve created a new drawing!');
     }
 
     /**
@@ -46,7 +53,7 @@ class DrawingController extends Controller
      */
     public function show(Drawing $drawing)
     {
-        //
+        return inertia('Drawings/Show', compact('drawing'));
     }
 
     /**

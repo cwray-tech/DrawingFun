@@ -58,4 +58,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function drawings()
+    {
+        return $this->hasMany(Drawing::class,'organizer_id', 'id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drawing;
 use App\Models\Invitee;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,16 @@ class InviteeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Drawing $drawing)
     {
-        //
+        $drawing->invitees()->create($request->all());
+        return back()->banner('Invitee added');
+    }
+
+    public function invite(Request $request, Drawing $drawing)
+    {
+        $drawing->inviteGuests();
+        return back()->banner('Invites have been sent out! Great work.');
     }
 
     /**
