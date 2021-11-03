@@ -46,7 +46,7 @@
                             :placeholder="invitee.email"
                             v-model="invitee.email"
                         ></jet-input>
-                        <p>{{ invitee.receiver.name }}</p>
+                        <p>{{ invitee.receiver?.name }}</p>
                     </div>
                 </div>
 
