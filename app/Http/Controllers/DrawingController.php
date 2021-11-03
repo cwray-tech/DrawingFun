@@ -53,7 +53,8 @@ class DrawingController extends Controller
      */
     public function show(Drawing $drawing)
     {
-        return inertia('Drawings/Show', compact('drawing'));
+        $invitees = $drawing->invitees()->with('receiver')->get();
+        return inertia('Drawings/Show', compact('drawing', 'invitees'));
     }
 
     /**

@@ -13,8 +13,9 @@
                     mx-auto
                     sm:px-6
                     lg:px-8
-                    grid grid-cols-2
-                    gap-40
+                    grid
+                    md:grid-cols-3
+                    gap-20
                 "
             >
                 <div
@@ -22,13 +23,14 @@
                         border-4 border-black border-opacity-100
                         bg-white
                         divide-y-2 divide-black
+                        md:col-span-2
                     "
                 >
                     <h2 class="p-6 text-xl">Drawing Invitees</h2>
 
                     <div
-                        class="p-6 grid grid-cols-2 gap-4"
-                        v-for="invitee in drawing.invitees"
+                        class="p-6 grid grid-cols-3 gap-4 items-center"
+                        v-for="invitee in invitees"
                         :key="invitee.id"
                     >
                         <jet-input
@@ -37,12 +39,14 @@
                             :placeholder="invitee.name"
                             v-model="invitee.name"
                         ></jet-input>
+
                         <jet-input
                             @change="updateInvitee(invitee)"
                             type="email"
                             :placeholder="invitee.email"
                             v-model="invitee.email"
                         ></jet-input>
+                        <p>{{ invitee.receiver.name }}</p>
                     </div>
                 </div>
 
@@ -109,7 +113,7 @@ import JetLabel from "@/Jetstream/Label.vue";
 import JetButton from "@/Jetstream/Button.vue";
 
 export default defineComponent({
-    props: ["drawing"],
+    props: ["drawing", "invitees"],
 
     components: {
         AppLayout,
