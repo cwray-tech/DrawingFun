@@ -18,9 +18,20 @@ class DrawController extends Controller
 
     public function store(Request $request, Drawing $drawing, Invitee $invitee)
     {
-        $invitee->update([
-            'receiver_id'=> $request->giving_to
-        ]);
+
+        $receiver = $invitee->available()->count() > 0
+            ? $invitee->available()->inRandomOrder()->first()
+            : $invitee;
+
+        //if there are no available invitees, and the invitee already has a receiver, then do nothing.
+        if($invitee->available()->count() == 0 && $invitee->receiver) 
+        { 
+            return back()->banner("Sorry, there are no more available names to draw."); 
+        }
+        else {
+            $invitee->receiver()->associate($receiver);
+            $invitee->save();
+        }
 
         Notification::send($invitee, new YouveDrawnAName($invitee->receiver, $drawing));
 

@@ -15,12 +15,16 @@ class Invitee extends Model
         return $this->belongsTo(Drawing::class);
     }
 
+    public function available()
+    {
+        return $this->drawing->availableInvitees()->where('id', '!=', $this->id);
+    }
 
     public function receiver() {
         return $this->belongsTo(Invitee::class, 'receiver_id');
     }
 
-    public function giver(){
+    public function giver(){  
         return $this->hasOne(Invitee::class, 'receiver_id');
     }
 }

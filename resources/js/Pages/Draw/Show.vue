@@ -53,14 +53,24 @@
                     </p>
                 </div>
             </div>
-            <p class="text-lg text-center" v-else>
-                You are giving a gift to
-                {{
-                    giving_to.id == invitee.id
-                        ? "whomever you want! Since there was an odd number of people in your exchange, you get to choose whoever you want to give a gift to."
-                        : giving_to.name + "!"
-                }}
-            </p>
+            <div v-else class="flex flex-col">
+                <p class="text-lg text-center">
+                    You are giving a gift to
+                    {{
+                        giving_to.id == invitee.id
+                            ? "whomever you want! Since there was an odd number of people in your exchange, you get to choose whoever you want to give a gift to."
+                            : giving_to.name + "!"
+                    }}
+                </p>
+                <jet-button
+                    class="text-center mx-auto mt-6 relative z-50"
+                    @click.prevent="draw"
+                    type="submit"
+                    >{{
+                        is_drawing ? "Drawing your name!" : "Redraw Name"
+                    }}</jet-button
+                >
+            </div>
         </div>
     </div>
     <div class="wrapper" v-if="giving_to">
@@ -72,6 +82,7 @@
 import { defineComponent } from "vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import JetButton from "@/Jetstream/Button";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     props: ["drawing", "invitee"],
@@ -83,7 +94,7 @@ export default defineComponent({
     data() {
         return {
             is_drawing: false,
-            giving_to: this.invitee.receiver ? this.invitee.receiver : null,
+            giving_to: this.invitee.receiver,
             available: this.drawing.available_invitees.filter(
                 (invitee) => invitee.id !== this.invitee.id
             ),
@@ -93,20 +104,15 @@ export default defineComponent({
     methods: {
         draw() {
             this.is_drawing = true;
-            this.giving_to =
-                this.available.length > 0
-                    ? this.available[
-                          Math.floor(Math.random() * this.available.length)
-                      ]
-                    : this.invitee;
-            this.$inertia.post(
-                route("draw.store", [this.drawing, this.invitee]),
-                {
-                    giving_to: this.giving_to.id,
-                    perserveState: false,
-                }
-            );
+            Inertia.post(route("draw.store", [this.drawing, this.invitee]), {
+                preserveState: false,
+            });
             this.is_drawing = false;
+        },
+    },
+    watch: {
+        "invitee.receiver": function (receiver) {
+            this.giving_to = receiver;
         },
     },
 });
