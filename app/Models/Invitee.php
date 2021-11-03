@@ -17,10 +17,10 @@ class Invitee extends Model
 
 
     public function receiver() {
-        return $this->hasOne(Invitee::class, 'id', 'receiver_id');
+        return $this->belongsTo(Invitee::class, 'receiver_id');
     }
 
     public function giver(){
-        return $this->belongsTo(Invitee::class, 'receiver_id');
+        return $this->hasOne(Invitee::class, 'receiver_id');
     }
 }
